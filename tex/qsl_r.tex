@@ -1,0 +1,51 @@
+\documentclass{article}
+\pagestyle{empty}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{eso-pic,graphicx}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[papersize={14cm,9cm}, margin=0.5cm, marginratio=1:1]{geometry}
+\setlength{\parindent}{0pt}
+\begin{document}
+\AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{qsl_r}}
+\begin{textblock*}{4cm}(7mm,2.2cm) % {block width} (coords) 
+   \textbf{x}
+\end{textblock*}
+\begin{textblock*}{4cm}(3.3cm,2cm) % {block width} (coords) 
+	\LARGE\emph{\textbf{[CALL]}}
+\end{textblock*}
+%\begin{textblock*}{4cm}(8cm,2cm) % {block width} (coords) 
+%   \LARGE\emph{\textbf{ABC VIA}}
+%\end{textblock*}
+\begin{textblock*}{2cm}(3cm,4.2cm) % {block width} (coords) 
+   2023
+\end{textblock*}
+\begin{textblock*}{1cm}(2cm,4.2cm) % {block width} (coords) 
+   09
+\end{textblock*}
+\begin{textblock*}{1cm}(1cm,4.2cm) % {block width} (coords) 
+   24
+\end{textblock*}
+\begin{textblock*}{1cm}(5cm,4.2cm) % {block width} (coords) 
+	[TIME]
+\end{textblock*}
+\begin{textblock*}{2cm}(7cm,4.2cm) % {block width} (coords) 
+	[FREQ]
+\end{textblock*}
+\begin{textblock*}{1cm}(98mm,4.2cm) % {block width} (coords) 
+	[MODE]
+\end{textblock*}
+\begin{textblock*}{1cm}(12cm,4.2cm) % {block width} (coords) 
+	[RST-RECV]
+\end{textblock*}
+\begin{textblock*}{1cm}(6mm,60mm) % {block width} (coords) 
+  \textbf{X}
+\end{textblock*}
+%\begin{textblock*}{1cm}(31mm,60mm) % {block width} (coords) 
+%  \textbf{X}
+%\end{textblock*}
+\begin{textblock*}{7cm}(5cm,59mm) % {block width} (coords) 
+   $73$ Sylwek SP2HER
+\end{textblock*}
+
+\end{document}

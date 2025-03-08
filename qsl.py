@@ -14,6 +14,9 @@ def create_working_directory_for_qso(qso -> dict) -> str:
     os.mkdir(current_path)
     return current_path
 
+def create_email_file_for_qso(email- > str, current_path -> str):
+    os.system("echo " +email+ " >> "+ current_path + "/mail")
+    
 filename="hf23wtte.log.adi"
 dist_directory = os.path.join(os.getcwd(), "dist")
 
@@ -22,7 +25,7 @@ qsos, headers = adif_io.read_from_file(filename)
 for qso in qsos:
     current_path = create_working_directory_for_qso(qso)
     if "EMAIL" in qso:
-        os.system("echo " +qso["EMAIL"]+ " >> "+ current_path + "/mail")
+        create_email_file_for_qso( qso["EMAIL"], current_path)
     qsl_r_file = copy_files(current_path)
     if "RST_SENT" not in qso:
         qso["RST_SENT"] = "-"

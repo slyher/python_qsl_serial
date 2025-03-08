@@ -9,14 +9,18 @@ def copy_files(current_path) -> str:
     os.system("cp ./tex/qsl_r.tex " + current_path)
     return current_path + "/qsl_r.tex"
 
+def create_working_directory_for_qso(qso -> dict) -> str:
+    current_path = os.path.join(dist_directory, qso["CALL"].replace("/","-") + qso["TIME_ON"])
+    os.mkdir(current_path)
+    return current_path
+
 filename="hf23wtte.log.adi"
 dist_directory = os.path.join(os.getcwd(), "dist")
 
 qsos, headers = adif_io.read_from_file(filename)
 
 for qso in qsos:
-    current_path = os.path.join(dist_directory, qso["CALL"].replace("/","-") + qso["TIME_ON"])
-    os.mkdir(current_path)
+    current_path = create_working_directory_for_qso(qso)
     if "EMAIL" in qso:
         os.system("echo " +qso["EMAIL"]+ " >> "+ current_path + "/mail")
     qsl_r_file = copy_files(current_path)

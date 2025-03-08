@@ -17,6 +17,9 @@ def create_working_directory_for_qso(qso -> dict) -> str:
 def create_email_file_for_qso(email- > str, current_path -> str):
     os.system("echo " +email+ " >> "+ current_path + "/mail")
     
+def update_qsl_content(qso -> dict) -> str:
+    return contents.replace("[CALL]",qso["CALL"].replace("/","{\slash}")).replace("[TIME]",qso["TIME_ON"][:2]+":"+qso["TIME_ON"][2:]).replace("[FREQ]",qso["FREQ"]).replace("[MODE]",qso["MODE"]).replace("[RST-RECV]",qso["RST_SENT"])
+    
 filename="hf23wtte.log.adi"
 dist_directory = os.path.join(os.getcwd(), "dist")
 
@@ -30,8 +33,7 @@ for qso in qsos:
     if "RST_SENT" not in qso:
         qso["RST_SENT"] = "-"
     with open(qsl_r_file, "r") as f:
-        contents = f.read()
-        contents = contents.replace("[CALL]",qso["CALL"].replace("/","{\slash}")).replace("[TIME]",qso["TIME_ON"][:2]+":"+qso["TIME_ON"][2:]).replace("[FREQ]",qso["FREQ"]).replace("[MODE]",qso["MODE"]).replace("[RST-RECV]",qso["RST_SENT"])
+        contents =update_qsl_content(f.read())
     f.close()
     f = open(qsl_r_file, "w")
     f.write(contents)

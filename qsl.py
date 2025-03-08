@@ -1,6 +1,14 @@
 import adif_io
 import os
 
+
+def copy_files(current_path) -> str:
+    os.system("cp ./tex/qslf.pdf " + current_path)
+    os.system("cp ./img/qsl_r.jpg "+current_path)
+    os.system("cp ./tex/qsl.tex " + current_path)
+    os.system("cp ./tex/qsl_r.tex " + current_path)
+    return current_path + "/qsl_r.tex"
+
 filename="hf23wtte.log.adi"
 dist_directory = os.path.join(os.getcwd(), "dist")
 
@@ -11,11 +19,7 @@ for qso in qsos:
     os.mkdir(current_path)
     if "EMAIL" in qso:
         os.system("echo " +qso["EMAIL"]+ " >> "+ current_path + "/mail")
-    os.system("cp ./tex/qslf.pdf " + current_path)
-    os.system("cp ./img/qsl_r.jpg "+current_path)
-    os.system("cp ./tex/qsl.tex " + current_path)
-    os.system("cp ./tex/qsl_r.tex " + current_path)
-    qsl_r_file = current_path + "/qsl_r.tex"
+    qsl_r_file = copy_files(current_path)
     if "RST_SENT" not in qso:
         qso["RST_SENT"] = "-"
     with open(qsl_r_file, "r") as f:
@@ -26,3 +30,4 @@ for qso in qsos:
     f.write(contents)
     f.close()
     os.system("./qsl.sh " + qso["CALL"]+qso["TIME_ON"])
+    

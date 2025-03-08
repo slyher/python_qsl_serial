@@ -28,6 +28,23 @@ def write_qsl_for_qso(content->str, qsl_r_file_name -> str):
 
 def generate_qsl_with_latex(qsl_directory):
     os.system("./qsl.sh " + qsl_directory)
+
+def preparing_environment_for_generating_qsl_with_qso(qso -> dict):
+    current_path, qsl_directory = create_working_directory_for_qso(qso)
+    if "EMAIL" in qso:
+        create_email_file_for_qso( qso["EMAIL"], current_path)
+    qsl_r_file_name = copy_files(current_path)
+    if "RST_SENT" not in qso:
+        qso["RST_SENT"] = "-"
+    return [qso,qsl_r_file_name, qsl_directory]
+
+def generate_qsl_with_qso(qso -> dict):
+    qso,qsl_r_file_name, qsl_directory = preparing_environment_for_generating_qsl_with_qso(qso)
+    with open(qsl_r_file_name, "r") as f:
+        content = update_qsl_content(f.read())
+    f.close()
+    write_qsl_for_qso(content, qsl_r_file_name)
+    generate_qsl_with_latex(qsl_directory)
     
 filename="hf23wtte.log.adi"
 dist_directory = os.path.join(os.getcwd(), "dist")
@@ -35,15 +52,5 @@ dist_directory = os.path.join(os.getcwd(), "dist")
 qsos, headers = adif_io.read_from_file(filename)
 
 for qso in qsos:
-    current_path, qsl_directory = create_working_directory_for_qso(qso)
-    if "EMAIL" in qso:
-        create_email_file_for_qso( qso["EMAIL"], current_path)
-    qsl_r_file_name = copy_files(current_path)
-    if "RST_SENT" not in qso:
-        qso["RST_SENT"] = "-"
-    with open(qsl_r_file_name, "r") as f:
-        content = update_qsl_content(f.read())
-    f.close()
-    write_qsl_for_qso(content, qsl_r_file_name)
-    generate_qsl_with_latex(qsl_directory)
+    generate_qsl_with_qso(qso)
     

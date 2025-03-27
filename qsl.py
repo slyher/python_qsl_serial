@@ -32,9 +32,7 @@ def create_working_directory_for_qso(qso -> dict) -> str:
     :return: A list containing the current path and the QSL directory name is being returned.
     """
     qsl_directory = qso["CALL"].replace("/", "-") + qso["TIME_ON"]
-    current_path = os.path.join(
-        dist_directory, qso["CALL"].replace(
-            "/", "-") + qso["TIME_ON"])
+    current_path = os.path.join(dist_directory, qsl_directory)
     os.mkdir(current_path)
     return [current_path, qsl_directory]
 

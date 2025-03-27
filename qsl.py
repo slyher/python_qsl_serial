@@ -144,7 +144,7 @@ def generate_qsl_with_qso(qso -> dict):
         qso)
     with open(qsl_r_file_name, "r") as f:
         content = update_qsl_content(f.read())
-    f.close()
+
     write_qsl_template_for_qso(content, qsl_r_file_name)
     generate_qsl_with_latex(qsl_directory)
 
